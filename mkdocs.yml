@@ -1,0 +1,12 @@
+site_name: RPI TNFS Server
+site_url: https://example.com/
+nav:
+    - Home: index.md
+    - Ubuntu Image: ubuntu.md
+    - Digital Ocean: digocean.md
+    - TNFS: tnfs.md
+    - Wireguard: wireguard.md
+    - Autossh: autossh.md
+    - ZFS: zfs.md
+    - about: about.md
+    
