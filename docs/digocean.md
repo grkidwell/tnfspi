@@ -5,7 +5,7 @@ Would also highly recommend you check out the podcast [Pythonbytes](https://pyth
 
 ## Create a new droplet
 Choose Ubuntu 20.04(LTS)x64 Distribution
-![Screenshot](img/createdrop1.png)
+![Screenshot](img/digocean1.png)
 
 Select Regular Intel w/SSD for $5/month
 
