@@ -1,5 +1,5 @@
 
-##TNFSPI
+## TNFSPI
 
 Tutorial for setting up raspberry pi tnfs server images and connecting them together with wireguard through a digital ocean server.
 
