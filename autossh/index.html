@@ -37,25 +37,25 @@
                                 <a href=".." class="nav-link">Home</a>
                             </li>
                             <li class="navitem">
-                                <a href="../ubuntu/" class="nav-link">Ubuntu Image</a>
-                            </li>
-                            <li class="navitem">
                                 <a href="../digocean/" class="nav-link">Digital Ocean</a>
                             </li>
                             <li class="navitem">
-                                <a href="../tnfs/" class="nav-link">TNFS</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../wireguard/" class="nav-link">Wireguard</a>
+                                <a href="../ubuntu/" class="nav-link">Ubuntu Pi Image</a>
                             </li>
                             <li class="navitem active">
                                 <a href="./" class="nav-link">Autossh</a>
                             </li>
                             <li class="navitem">
+                                <a href="../wireguard/" class="nav-link">Wireguard</a>
+                            </li>
+                            <li class="navitem">
                                 <a href="../zfs/" class="nav-link">ZFS</a>
                             </li>
                             <li class="navitem">
-                                <a href="../about/" class="nav-link">about</a>
+                                <a href="../tnfs/" class="nav-link">TNFS</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../ap/" class="nav-link">AP</a>
                             </li>
                         </ul>
 
@@ -66,12 +66,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../wireguard/" class="nav-link">
+                                <a rel="prev" href="../ubuntu/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../zfs/" class="nav-link">
+                                <a rel="next" href="../wireguard/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -92,12 +92,136 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#autossh" class="nav-link">Autossh</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_1" class="nav-link">&nbsp;</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#copy-sshkeys" class="nav-link">Copy sshkeys</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#test-ssh-function" class="nav-link">Test ssh function</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_4" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_5" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_6" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#install-autossh" class="nav-link">Install Autossh</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_7" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_8" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#test-reverse-ssh-tunnel" class="nav-link">Test reverse ssh tunnel</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_9" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-</div>
+<h1 id="autossh">Autossh</h1>
+<h1 id="_1">&nbsp;</h1>
+<p>Create a "back door" reverse ssh tunnel between tnfspi and digital ocean server.
+The tunnel is initiated/created from the raspberry pi, but is accessed from the digocean server.
+This tunnel will allow your pc to use the digocean server as a "jump point" to the raspberry pi tnfspi server
+inside your home firewall.  Because the reverse ssh tunnel is created from tnfspi, you don't have to open 
+pinholes in your home firewall to access it from the outside.</p>
+<h2 id="copy-sshkeys">Copy sshkeys</h2>
+<p>from linux pc to tnfspi</p>
+<h2 id="_2"></h2>
+<pre><code>alex@xanadu_pc:~$ sudo scp .ssh/tnfs* pi@tnfspi.local:~/.ssh
+</code></pre>
+<p>Login to tnfspi </p>
+<h2 id="_3"></h2>
+<pre><code>alex@xanadu_pc:~$ ssh pi@tnfspi.local     # pi will ask for password
+pi@tnfspi:~$
+</code></pre>
+<h2 id="test-ssh-function">Test ssh function</h2>
+<p>from tnfspi to digocean server</p>
+<h2 id="_4"></h2>
+<pre><code>pi@tnfspi:~$ ssh -i ~/.ssh/tnfs geddy@211.211.211.211
+</code></pre>
+<p>This should log you into digital ocean server.  </p>
+<h2 id="_5"></h2>
+<pre><code>geddy@211.211.211.211:~$
+</code></pre>
+<p>Now exit back to tnfspi</p>
+<h2 id="_6"></h2>
+<pre><code>geddy@211.211.211.211:~$ exit
+</code></pre>
+<h2 id="install-autossh">Install Autossh</h2>
+<p>on Rpi</p>
+<h2 id="_7"></h2>
+<pre><code>pi@tnfspi:~$ sudo apt install autossh
+pi@tnfspi:~$ sudo nano /lib/systemd/system/autossh-digocean-tunnel.service
+
+#this service establishes a reverse tunnel with the digital ocean server
+#
+
+[Unit]
+Description=AutoSSH tunnel service digital ocean 211.211.211.211 on local port 2222
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Environment="AUTOSSH_GATETIME=0"
+ExecStart=
+ExecStart=/usr/bin/autossh -M 0 -o "ExitOnForwardFailure yes" -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -N -R 2222:localhost:22 geddy@211.211.211.211 -i /home/pi/.ssh/tnfs
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h2 id="_8"></h2>
+<pre><code>pi@tnfspi:~$ sudo systemctl daemon-reload
+pi@tnfspi:~$ sudo systemctl enable autossh-digocean-tunnel
+pi@tnfspi:~$ sudo systemctl start autossh-digocean-tunnel
+</code></pre>
+<h2 id="test-reverse-ssh-tunnel">Test reverse ssh tunnel</h2>
+<p>From linux pc to digocean server to tnfs pi server</p>
+<h2 id="_9"></h2>
+<pre><code>alex@xanadu_pc:~$ ssh tnfs
+geddy@tnfs_digocean:~$ ssh -p 2222 pi@localhost
+pi@tnfspi:~$
+</code></pre>
+<p>You now are logged into your raspberry pi inside your home network!</p></div>
             </div>
         </div>
 

@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://example.com/ubuntu/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Ubuntu Image - RPI TNFS Server</title>
+        <title>Ubuntu Pi Image - RPI TNFS Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -36,26 +36,26 @@
                             <li class="navitem">
                                 <a href=".." class="nav-link">Home</a>
                             </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">Ubuntu Image</a>
-                            </li>
                             <li class="navitem">
                                 <a href="../digocean/" class="nav-link">Digital Ocean</a>
                             </li>
-                            <li class="navitem">
-                                <a href="../tnfs/" class="nav-link">TNFS</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../wireguard/" class="nav-link">Wireguard</a>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Ubuntu Pi Image</a>
                             </li>
                             <li class="navitem">
                                 <a href="../autossh/" class="nav-link">Autossh</a>
                             </li>
                             <li class="navitem">
+                                <a href="../wireguard/" class="nav-link">Wireguard</a>
+                            </li>
+                            <li class="navitem">
                                 <a href="../zfs/" class="nav-link">ZFS</a>
                             </li>
                             <li class="navitem">
-                                <a href="../about/" class="nav-link">about</a>
+                                <a href="../tnfs/" class="nav-link">TNFS</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../ap/" class="nav-link">AP</a>
                             </li>
                         </ul>
 
@@ -66,12 +66,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../digocean/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../digocean/" class="nav-link">
+                                <a rel="next" href="../autossh/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -92,12 +92,104 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#install-ubuntu-server-image" class="nav-link">Install Ubuntu Server image</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">&nbsp;</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#image-usb-drive" class="nav-link">Image USB drive</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#partition-usb-drive" class="nav-link">Partition USB drive</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#boot-rpi-and-check-fw" class="nav-link">Boot Rpi and Check FW</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#add-pi-user" class="nav-link">Add pi user</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#add-local-name-resolving" class="nav-link">Add local name resolving</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#remote-ssh-login" class="nav-link">Remote ssh login</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_4" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-</div>
+<h1 id="install-ubuntu-server-image">Install Ubuntu Server image</h1>
+<p>on Raspberry Pi </p>
+<h2 id="_1">&nbsp;</h2>
+<h2 id="image-usb-drive">Image USB drive</h2>
+<p>Use Raspberry Pi Imager
+link to download <a href="https://www.raspberrypi.com/software/">Raspberry pi imager</a></p>
+<p><img alt="Screenshot" src="../img/ubuntu2.png" /></p>
+<p>select "Other general purpose OS"</p>
+<p><img alt="Screenshot" src="../img/ubuntu3.png" /></p>
+<p>select "Ubuntu"</p>
+<p><img alt="Screenshot" src="../img/ubuntu4.png" /></p>
+<p>select "Ubuntu Server 21.10 (RPI2/3/4/400) 64bit(zfs) or 32bit(no zfs)</p>
+<p><img alt="Screenshot" src="../img/ubuntu5.png" /></p>
+<h2 id="partition-usb-drive">Partition USB drive</h2>
+<p>Use Gparted to resize OS partition and add zdata partition</p>
+<p><img alt="Screenshot" src="../img/ubuntu6.png" /></p>
+<h2 id="boot-rpi-and-check-fw">Boot Rpi and Check FW</h2>
+<p>Reference link <a href="https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/">Rpi4 Bootloader Firmware Update Guide</a></p>
+<pre><code>ubuntu@ubuntu:~$ sudo apt update &amp;&amp; sudo apt upgrade -Y
+ubuntu@ubuntu:~$ sudo reboot
+ubuntu@ubuntu:~$ sudo rpi-eeprom-update
+</code></pre>
+<p>If FW is not up to date then run</p>
+<h2 id="_2"></h2>
+<pre><code>ubuntu@ubuntu:~$ sudo rpi-eeprom-update -d -a
+</code></pre>
+<h2 id="add-pi-user">Add pi user</h2>
+<pre><code>ubuntu@ubuntu:~$ sudo adduser pi
+ubuntu@ubuntu:~$ sudo usermod -aG sudo pi
+</code></pre>
+<h2 id="add-local-name-resolving">Add local name resolving</h2>
+<p>and change hostname</p>
+<h2 id="_3"></h2>
+<pre><code>ubuntu@ubuntu:~$ sudo apt install libnss-mdns
+ubuntu@ubuntu:~$ sudo nano /etc/nsswitch.conf
+
+hosts:          files mdns4_minimal [NOTFOUND=return] dns mdns4
+
+ubuntu@ubuntu:~$ sudo hostnamectl set-hostname tnfspi
+ubuntu@ubuntu:~$ sudo reboot
+alex@xanadu_pc:~$
+</code></pre>
+<h2 id="remote-ssh-login">Remote ssh login</h2>
+<p>from PC terminal to user pi at tnfspi server</p>
+<h2 id="_4"></h2>
+<pre><code>alex@xanadu_pc:~$ ssh pi@tnfspi.local
+pi@tnfspi:~$
+</code></pre></div>
             </div>
         </div>
 

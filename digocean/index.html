@@ -36,26 +36,26 @@
                             <li class="navitem">
                                 <a href=".." class="nav-link">Home</a>
                             </li>
-                            <li class="navitem">
-                                <a href="../ubuntu/" class="nav-link">Ubuntu Image</a>
-                            </li>
                             <li class="navitem active">
                                 <a href="./" class="nav-link">Digital Ocean</a>
                             </li>
                             <li class="navitem">
-                                <a href="../tnfs/" class="nav-link">TNFS</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../wireguard/" class="nav-link">Wireguard</a>
+                                <a href="../ubuntu/" class="nav-link">Ubuntu Pi Image</a>
                             </li>
                             <li class="navitem">
                                 <a href="../autossh/" class="nav-link">Autossh</a>
                             </li>
                             <li class="navitem">
+                                <a href="../wireguard/" class="nav-link">Wireguard</a>
+                            </li>
+                            <li class="navitem">
                                 <a href="../zfs/" class="nav-link">ZFS</a>
                             </li>
                             <li class="navitem">
-                                <a href="../about/" class="nav-link">about</a>
+                                <a href="../tnfs/" class="nav-link">TNFS</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../ap/" class="nav-link">AP</a>
                             </li>
                         </ul>
 
@@ -66,12 +66,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../ubuntu/" class="nav-link">
+                                <a rel="prev" href=".." class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../tnfs/" class="nav-link">
+                                <a rel="next" href="../ubuntu/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -95,6 +95,10 @@
             
             <li class="nav-item" data-level="1"><a href="#set-up-a-digital-ocean-server" class="nav-link">Set up a Digital Ocean server</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">&nbsp;</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#create-a-new-droplet" class="nav-link">Create a new droplet</a>
               <ul class="nav flex-column">
               </ul>
@@ -103,15 +107,31 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#create-ssh-key-pair-on-linux-pc-client-and-copy-to-server" class="nav-link">Create ssh key pair on linux PC client and copy to server</a>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link"></a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#setup-sshconfig-on-client-pc" class="nav-link">Setup ~/.ssh/config on client PC</a>
+            <li class="nav-item" data-level="2"><a href="#create-ssh-key-pair" class="nav-link">Create ssh key pair</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#disable-password-authentication-on-server" class="nav-link">Disable Password Authentication on server</a>
+            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#setup-sshconfig" class="nav-link">Setup ~/.ssh/config</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_4" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#disable-password-access" class="nav-link">Disable Password Access</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_5" class="nav-link"></a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -123,8 +143,8 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="set-up-a-digital-ocean-server">Set up a Digital Ocean server</h1>
-<p>Create a new account with $100/60 day credit <a href="https://try.digitalocean.com/open-source/?utm_medium=podcast&amp;utm_source=pythonbytes&amp;utm_campaign=Core_DO_SS_Cold">digital ocean</a>.
-Would also highly recommend you check out the podcast <a href="https://pythonbytes.fm/">Pythonbytes</a>, from where this discount comes.</p>
+<h2 id="_1">&nbsp;</h2>
+<p>Create a new account with $100/60-day credit on <a href="https://try.digitalocean.com/open-source/?utm_medium=podcast&amp;utm_source=pythonbytes&amp;utm_campaign=Core_DO_SS_Cold">Digital Ocean</a>, who sponsors the excellent <a href="https://pythonbytes.fm/">PythonBytes</a> podcast.</p>
 <h2 id="create-a-new-droplet">Create a new droplet</h2>
 <p>Choose Ubuntu 20.04(LTS)x64 Distribution
 <img alt="Screenshot" src="../img/digocean1.png" /></p>
@@ -138,34 +158,46 @@ Do not create New SSH key.  You will do this from your linux client.</p>
 <h2 id="initial-server-setup">Initial Server Setup</h2>
 <p>Follow digital ocean <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-20-04">Initial Setup</a> tutorial</p>
 <p>From linux pc client</p>
-<pre><code>$ ssh root@211.211.211.211    # Enter your new static IP address provided by Digital Ocean
+<pre><code>alex@xanadu_pc:~$  ssh root@211.211.211.211    # Enter your new static IP address provided by Digital Ocean
 </code></pre>
 <p>Now you are logged in to your digital ocean server as root</p>
 <p>From <a href="https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands">UFW Essentials Guide</a></p>
-<pre><code>$ adduser geddy
-$ usermod -aG sudo geddy
-$ ufw allow OpenSSH
-$ ufw enable
+<pre><code>root@tnfs_digocean:$ adduser geddy
+root@tnfs_digocean:$ usermod -aG sudo geddy
+root@tnfs_digocean:$ ufw allow OpenSSH
+root@tnfs_digocean:$ ufw enable
 </code></pre>
-<h2 id="create-ssh-key-pair-on-linux-pc-client-and-copy-to-server">Create ssh key pair on linux PC client and copy to server</h2>
-<p>From <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04">SSH Key Creation</a> tutorial</p>
-<pre><code>$ ssh-keygen -l   # enter tnfs when prompted
-$ ssh-copy-id geddy@211.211.211.211
+<p>Exit back to linux pc</p>
+<h2 id="_2"></h2>
+<pre><code>root@tnfs_digocean:$ exit
+alex@xanadu_pc:~$
 </code></pre>
-<h2 id="setup-sshconfig-on-client-pc">Setup ~/.ssh/config on client PC</h2>
-<pre><code>$ nano ~/.ssh/config
+<h2 id="create-ssh-key-pair">Create ssh key pair</h2>
+<p>on linux PC client and copy to server from <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04">SSH Key Creation</a> tutorial</p>
+<h2 id="_3"></h2>
+<pre><code>alex@xanadu_pc:~$ cd .ssh
+alex@xanadu_pc:~/.ssh$ ssh-keygen -l   # enter tnfs when prompted
+alex@xanadu_pc:~/.ssh$ ssh-copy-id geddy@211.211.211.211
+</code></pre>
+<h2 id="setup-sshconfig">Setup ~/.ssh/config</h2>
+<p>on client PC</p>
+<h2 id="_4"></h2>
+<pre><code>alex@xanadu_pc:~/.ssh$  nano config
 
 Host tnfs*
     HostName        211.211.211.211
     User            geddy
     IdentityFile    ~/.ssh/tnfs
 
-$ ssh tnfs       # now you have a shortcut to ssh from client into your server
+alex@xanadu_pc:~/.ssh$  ssh tnfs       # now you have a shortcut to ssh from client into DO server
+geddy@tnfs_digocean:~$
 </code></pre>
-<h2 id="disable-password-authentication-on-server">Disable Password Authentication on server</h2>
-<pre><code>$ sudo nano /etc/ssh/sshd_config
+<h2 id="disable-password-access">Disable Password Access</h2>
+<p>on server</p>
+<h2 id="_5"></h2>
+<pre><code>geddy@tnfs_digocean:~$ sudo nano /etc/ssh/sshd_config
 PasswordAuthentication no   # then cntl-x and save 
-$ sudo service ssh restart
+geddy@tnfs_digocean:~$ sudo service ssh restart
 </code></pre></div>
             </div>
         </div>
