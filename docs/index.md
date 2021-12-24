@@ -1,20 +1,21 @@
-# Welcome to MkDocs
+# Welcome to TFNSpi
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+For repository of these instructions see [github tnfspi](https://github.com/grkidwell/tnfspi)
 
-## Commands
+## Components
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+1. Digital Ocean server as central hub of wireguard network
 
-## Project layout
+2. Ubuntu Server on Raspberry Pi
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+3. Autossh reverse ssh tunnel between raspberry pi and digital ocean server for maintenance.
 
-##
-    doh
+4. Wireguard to create secure encrypted VPN tunnel between multiple TNFS servers /Fujinet devices
+
+5. ZFS filesystem and Sanoid to automate rolling snapshots of tnfs data
+
+6. TNFS to share Atari disk images over Fujinet
+
+7. Samba to easily transfer files over both local network and wireguard vpn 
+ 
+8. Network Manager to easily turn the pi into an access point to wirelessly communicate with Fujinet device 
