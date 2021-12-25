@@ -92,12 +92,198 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#wireguard" class="nav-link">Wireguard</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">&nbsp;</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#install-wireguard" class="nav-link">Install wireguard</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_2" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_3" class="nav-link"></a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#generate-key-pairs" class="nav-link">Generate key-pairs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_4" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_5" class="nav-link"></a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#create-wireguard-config-files" class="nav-link">Create wireguard config files</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_6" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_7" class="nav-link"></a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#enable-port-forwarding" class="nav-link">Enable port forwarding</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_8" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_9" class="nav-link"></a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#open-server-port-51820" class="nav-link">Open server port 51820</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-wireguard" class="nav-link">Start Wireguard</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_10" class="nav-link"></a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_11" class="nav-link"></a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#login-to-server-from-client" class="nav-link">Login to server from client</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#login-to-client-from-server" class="nav-link">Login to client from server</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-</div>
+<h1 id="wireguard">Wireguard</h1>
+<h2 id="_1">&nbsp;</h2>
+<h2 id="install-wireguard">Install wireguard</h2>
+<p>digital ocean server</p>
+<h1 id="_2"></h1>
+<pre><code>geddy@tnfs_digocean:~$ sudo apt install wireguard
+</code></pre>
+<p>tnfspi</p>
+<h1 id="_3"></h1>
+<pre><code>pi@tnfspi~$ sudo apt install wireguard
+</code></pre>
+<h2 id="generate-key-pairs">Generate key-pairs</h2>
+<p>digital ocean server</p>
+<h1 id="_4"></h1>
+<pre><code>geddy@tnfs_digocean:~$ wg genkey |sudo tee private.key
+geddy@tnfs_digocean:~$ cat private.key|wg pubkey|sudo tee public.key
+</code></pre>
+<p>tnfspi</p>
+<h1 id="_5"></h1>
+<pre><code>pi@tnfspi:~$ wg genkey |sudo tee private.key
+pi@tnfspi:~$ cat private.key|wg pubkey|sudo tee public.key
+</code></pre>
+<h2 id="create-wireguard-config-files">Create wireguard config files</h2>
+<p>digital ocean server</p>
+<h1 id="_6"></h1>
+<pre><code>geddy@tnfs_digocean:~$ sudo nano /etc/wireguard/wgtnfs.conf
+
+[interface]
+PrivateKey = &lt;tnfs_digocean private key&gt;
+Address = 10.14.1.1/24
+ListenPort=51820
+
+PostUp   = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+#tnfspi
+[Peer]
+Publickey= &lt;tnfspi public key&gt;
+AllowedIPs=10.14.1.2/32
+</code></pre>
+<p>tnfspi</p>
+<h1 id="_7"></h1>
+<pre><code>pi@tnfspi:~$ sudo nano /etc/wireguard/wgtnfs.conf
+
+[Interface]
+Privatekey = &lt;tnfspi privatekey&gt;
+Address = 10.14.1.2/24
+
+[Peer]
+Publickey = &lt;tnfs_digocean private key&gt;
+Endpoint = &lt;tnfs_digocean status ip address&gt;:51820
+AllowedIPs = 10.14.1.0/24
+
+PersistentKeepalive = 25
+</code></pre>
+<h2 id="enable-port-forwarding">Enable port forwarding</h2>
+<p>digital ocean server</p>
+<h1 id="_8"></h1>
+<pre><code>geddy@tnfs_digocean:~$ sudo nano /etc/sysctl.conf
+
+net.ipv4.ip_forward=1
+
+geddy@tnfs_digocean:~$ sudo sysctl -p /etc/sysctl.conf   # restart service
+geddy@tnfs_digocean:~$ sysctl net.ipv4.ip_forward        # verifies ip forwarding is enabled. should return net.ipv4.ip_foward=1
+</code></pre>
+<p>tnfspi</p>
+<h1 id="_9"></h1>
+<pre><code>pi@tnfspi:~$ sudo nano /etc/sysctl.conf
+
+net.ipv4.ip_forward=1
+
+pi@tnfspi:~$ sudo sysctl -p /etc/sysctl.conf   # restart service
+pi@tnfspi:~$ sysctl net.ipv4.ip_forward        # verifies ip forwarding is enabled. should return net.ipv4.ip_foward=1
+</code></pre>
+<h2 id="open-server-port-51820">Open server port 51820</h2>
+<pre><code>geddy@tnfs_digocean:~$ sudo ufw allow 51820
+</code></pre>
+<h2 id="start-wireguard">Start Wireguard</h2>
+<p>digital ocean server</p>
+<h1 id="_10"></h1>
+<pre><code>geddy@tnfs_digocean:~$ sudo systemctl start wg-quick@wgtnfs.service
+geddy@tnfs_digocean:~$ sudo systemctl enable wg-quick@wgtnfs.service
+</code></pre>
+<p>tnfspi</p>
+<h1 id="_11"></h1>
+<pre><code>pi@tnfspi:~$ sudo systemctl start wg-quick@wgtnfs.service
+pi@tnfspi:~$ sudo systemctl enable wg-quick@wgtnfs.service
+</code></pre>
+<h2 id="login-to-server-from-client">Login to server from client</h2>
+<pre><code>pi@tnfspi:~$ ssh -i .ssh/tnfs geddy@10.14.1.1
+geddy@tnfs_digocean:~$
+</code></pre>
+<h2 id="login-to-client-from-server">Login to client from server</h2>
+<pre><code>geddy@tnfs_digocean:~$ ssh pi@10.14.1.2
+pi@tnfspi:~$
+</code></pre></div>
             </div>
         </div>
 
