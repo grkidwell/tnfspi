@@ -93,8 +93,24 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="2"><a href="#access-point" class="nav-link">Access Point</a>
+            <li class="nav-item" data-level="1"><a href="#access-point" class="nav-link">Access Point</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">&nbsp;</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#install-network-manager" class="nav-link">Install Network Manager</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#create-hotspot" class="nav-link">Create Hotspot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configure-and-activate-hotspot" class="nav-link">Configure and Activate Hotspot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -102,7 +118,20 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h2 id="access-point">Access Point</h2>
+<h1 id="access-point">Access Point</h1>
+<h2 id="_1">&nbsp;</h2>
+<h2 id="install-network-manager">Install Network Manager</h2>
+<pre><code>pi@tnfspi:~$ sudo apt install network-manager
+</code></pre>
+<h2 id="create-hotspot">Create Hotspot</h2>
+<pre><code>pi@tnfspi:~$ sudo nmcli d wifi hotspot ifname wlan0 ssid tnfspi password strangiato
+</code></pre>
+<h2 id="configure-and-activate-hotspot">Configure and Activate Hotspot</h2>
+<pre><code>pi@tnfspi:~$ sudo nmcli con modify Hotspot ipv4.method shared ipv4.addresses 192.168.6.1/24
+pi@tnfspi:~$ sudo nmcli con mod Hotspot connection.autoconnect yes
+pi@tnfspi:~$ sudo nmcli con up Hotspot
+
+</code></pre>
 <p>This page under construction</p></div>
             </div>
         </div>

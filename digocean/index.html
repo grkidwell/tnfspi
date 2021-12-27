@@ -162,9 +162,9 @@ Do not create New SSH key.  You will do this from your linux client.</p>
 </code></pre>
 <p>Now you are logged in to your digital ocean server as root</p>
 <p>From <a href="https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands">UFW Essentials Guide</a></p>
-<pre><code>root@tnfs_digocean:$ adduser geddy
+<pre><code>root@tnfs_digocean:$ adduser geddy    #may need to be useradd
 root@tnfs_digocean:$ usermod -aG sudo geddy
-root@tnfs_digocean:$ ufw allow OpenSSH
+root@tnfs_digocean:$ ufw allow OpenSSH 
 root@tnfs_digocean:$ ufw enable
 </code></pre>
 <p>Exit back to linux pc</p>
@@ -176,8 +176,8 @@ alex@xanadu_pc:~$
 <p>on linux PC client and copy to server from <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04">SSH Key Creation</a> tutorial</p>
 <h2 id="_3"></h2>
 <pre><code>alex@xanadu_pc:~$ cd .ssh
-alex@xanadu_pc:~/.ssh$ ssh-keygen -l   # enter tnfs when prompted
-alex@xanadu_pc:~/.ssh$ ssh-copy-id geddy@211.211.211.211
+alex@xanadu_pc:~/.ssh$ ssh-keygen   # enter tnfs when prompted
+alex@xanadu_pc:~/.ssh$ ssh-copy-id -i tnfs.pub geddy@211.211.211.211
 </code></pre>
 <h2 id="setup-sshconfig">Setup ~/.ssh/config</h2>
 <p>on client PC</p>

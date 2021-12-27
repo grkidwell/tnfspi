@@ -97,12 +97,85 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">&nbsp;</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#install-packages" class="nav-link">Install packages</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#create-tnfs-systemd-service" class="nav-link">Create tnfs systemd service</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#edit-samba-config-file" class="nav-link">Edit samba config file</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#reload-systemd" class="nav-link">Reload systemd</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
 <h2 id="tnfs">TNFS</h2>
+<h2 id="_1">&nbsp;</h2>
+<p>Ref <a href="https://github.com/FujiNetWIFI/fujinet-platformio/wiki/Setting-up-TNFS-on-a-Raspberry-Pi">Setting up TNFS on a Raspberry Pi</a></p>
+<h2 id="install-packages">Install packages</h2>
+<pre><code>pi@tnfspi:~$ sudo apt install samba samba-common-bin make build-essential
+pi@tnfspi:~$ git clone https://github.com/FujiNetWIFI/spectranet.git
+cd spectranet
+cd tnfs/tnfsd
+make OS=LINUX DEBUG=Y
+sudo cp bin/tnfsd /usr/local/sbin
+sudo chown tnfs:tnfs /bytor/tnfs
+</code></pre>
+<h2 id="create-tnfs-systemd-service">Create tnfs systemd service</h2>
+<pre><code>pi@tnfspi:~$ sudo nano /etc/systemd/system/tnfsd.service
+
+[Unit]
+Description=TNFS Server
+After=remote-fs.target
+After=syslog.target
+
+[Service]
+User=tnfs
+Group=tnfs
+ExecStart=/usr/local/sbin/tnfsd /bytor/tnfs
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h2 id="edit-samba-config-file">Edit samba config file</h2>
+<pre><code>pi@tnfspi:~$ sudo nano /etc/samba/smb.conf
+</code></pre>
+<p>Add to bottom</p>
+<pre><code>[tnfs]
+        path = /bytor/tnfs
+        writeable = Yes
+        create mask = 0777
+        directory mask = 0777
+        public = yes
+        force user = tnfs
+        force group = tnfs
+
+</code></pre>
+<h2 id="reload-systemd">Reload systemd</h2>
+<pre><code>pi@tnfspi:~$ sudo systemctl daemon-reload
+pi@tnfspi:~$ sudo systemctl enable tnfsd
+pi@tnfspi:~$ sudo systemctl start tnfsd
+pi@tnfspi:~$ sudo systemctl restart smbd
+
+</code></pre>
 <p>This page under construction</p></div>
             </div>
         </div>
