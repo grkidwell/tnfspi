@@ -31,9 +31,9 @@ Now you are logged in to your digital ocean server as root
 
 From [UFW Essentials Guide](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 
-    root@tnfs_digocean:$ adduser geddy
+    root@tnfs_digocean:$ adduser geddy    #may need to be useradd
     root@tnfs_digocean:$ usermod -aG sudo geddy
-    root@tnfs_digocean:$ ufw allow OpenSSH
+    root@tnfs_digocean:$ ufw allow OpenSSH 
     root@tnfs_digocean:$ ufw enable
 Exit back to linux pc
 ##
@@ -45,8 +45,8 @@ Exit back to linux pc
 on linux PC client and copy to server from [SSH Key Creation](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-20-04) tutorial
 ##
     alex@xanadu_pc:~$ cd .ssh
-    alex@xanadu_pc:~/.ssh$ ssh-keygen -l   # enter tnfs when prompted
-    alex@xanadu_pc:~/.ssh$ ssh-copy-id geddy@211.211.211.211
+    alex@xanadu_pc:~/.ssh$ ssh-keygen   # enter tnfs when prompted
+    alex@xanadu_pc:~/.ssh$ ssh-copy-id -i tnfs.pub geddy@211.211.211.211
 
 ## Setup ~/.ssh/config 
 on client PC

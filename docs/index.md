@@ -19,3 +19,6 @@ For repository of these instructions see [github tnfspi](https://github.com/grki
 7. Samba to easily transfer files over both local network and wireguard vpn 
  
 8. Network Manager to easily turn the pi into an access point to wirelessly communicate with Fujinet device 
+
+## Architecture
+![Screenshot](img/architecture.png)
